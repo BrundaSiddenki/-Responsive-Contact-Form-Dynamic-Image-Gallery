@@ -1,0 +1,399 @@
+/* Screen reader only for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Base styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+  margin: 0;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Dark mode */
+body.dark {
+  background: #121212;
+  color: #ddd;
+}
+
+body.dark header {
+  background: linear-gradient(45deg, #444, #222);
+}
+
+body.dark footer {
+  background: linear-gradient(45deg, #222, #444);
+}
+
+body.dark .container {
+  background: #1e1e1e;
+  box-shadow:
+    0 20px 40px rgba(101, 41, 255, 0.1),
+    inset 0 0 60px rgba(255, 0, 128, 0.02);
+}
+
+body.dark input, body.dark textarea {
+  background: #2a2a2a;
+  border-color: #555;
+  color: #eee;
+}
+
+body.dark input:focus, body.dark textarea:focus {
+  border-color: #bb86fc;
+  box-shadow: 0 0 8px #bb86fcaa;
+}
+
+body.dark label {
+  background: #1e1e1e;
+  color: #aaa;
+}
+
+body.dark input:focus + label,
+body.dark input:not(:placeholder-shown) + label,
+body.dark textarea:focus + label,
+body.dark textarea:not(:placeholder-shown) + label {
+  color: #bb86fc;
+}
+
+/* Header */
+header {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  padding: 1rem 0.8rem;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  user-select: none;
+  position: relative;
+}
+
+/* Dark mode toggle button */
+#toggleDark {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#toggleDark:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  background: linear-gradient(45deg, #2575fc, #6a11cb);
+  text-align: center;
+  padding: 1rem 0;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Container */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1100px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow:
+    0 20px 40px rgba(101, 41, 255, 0.3),
+    inset 0 0 60px rgba(255, 0, 128, 0.05);
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite;
+  gap: 0;
+  transition: padding 0.3s ease;
+}
+
+/* Info Section */
+.info {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: 500;
+  user-select: none;
+}
+
+.info h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: 1rem;
+  letter-spacing: 1.2px;
+}
+
+.info p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  color: #d6d9ffcc;
+}
+
+/* Form Section */
+.form-section {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Form */
+form {
+  width: 100%;
+}
+
+/* Form group */
+.form-group {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+/* Input and textarea */
+input, textarea {
+  width: 100%;
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #333;
+  background: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  resize: none;
+  animation: floatInput 6s ease-in-out infinite;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: transparent;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #6a11cb;
+  box-shadow: 0 0 8px #6a11cbaa;
+}
+
+/* Label styling */
+label {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.3rem;
+  color: #888;
+  font-weight: 500;
+  font-size: 1rem;
+  pointer-events: none;
+  background: #fff;
+  padding: 0 6px;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+/* Float label when input focused or filled */
+input:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:focus + label,
+textarea:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 1.2rem;
+  font-size: 0.8rem;
+  color: #6a11cb;
+  font-weight: 600;
+}
+
+/* Error span */
+.error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: block;
+  min-height: 1.1rem;
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Submit and Clear buttons */
+button[type="submit"],
+button#clearBtn {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  box-shadow: 0 6px 15px rgba(101, 41, 255, 0.4);
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4e09a7, #1d5acc);
+  transform: scale(1.05);
+}
+
+button[type="submit"]:disabled {
+  cursor: not-allowed;
+  background: #aaa;
+  box-shadow: none;
+}
+
+/* Clear button */
+button#clearBtn {
+  background: #e74c3c;
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+}
+
+button#clearBtn:hover {
+  background: #c0392b;
+  transform: scale(1.05);
+}
+
+/* Loader spinner in submit button */
+.loader {
+  border: 3px solid #fff;
+  border-top: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+/* Show loader when loading */
+button.loading .loader {
+  display: inline-block;
+}
+
+/* Hide button text when loading */
+button.loading .btn-text {
+  opacity: 0;
+}
+
+/* Success message */
+.success-message {
+  margin-top: 1.8rem;
+  font-weight: 600;
+  color: #27ae60;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.success-message.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: pulse 2s infinite;
+}
+
+/* Checkmark icon */
+.checkmark {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  stroke-width: 4;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { filter: drop-shadow(0 0 3px #27ae60); }
+  50% { filter: drop-shadow(0 0 10px #27ae60); }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes floatInput {
+  0%, 100% {
+    box-shadow: 0 0 6px 0 rgba(101, 41, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px 3px rgba(101, 41, 255, 0.6);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .info {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .form-section {
+    padding: 2rem 1.5rem;
+  }
+
+  header {
+    font-size: 1.3rem;
+    padding: 0.9rem 0.6rem;
+  }
+}
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 10px;
+}
+
+.form-section {
+  min-width: 320px; /* ensure enough width */
+  overflow: visible; /* prevent clipping */
+}
