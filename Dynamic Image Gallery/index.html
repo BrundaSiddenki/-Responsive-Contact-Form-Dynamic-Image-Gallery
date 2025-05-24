@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Image Gallery with Upload and Zoom</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="gallery-container">
+    <h1>Dynamic Image Gallery with Upload</h1>
+    <div class="input-group">
+      <input type="text" id="image-url-input" placeholder="Paste image URL here" />
+      <button id="add-image-btn">Add Image by URL</button>
+    </div>
+
+    <div class="input-group upload-group">
+      <label for="image-upload" class="upload-label">Upload Image from Device</label>
+      <input type="file" id="image-upload" accept="image/*" multiple />
+    </div>
+
+    <button id="clear-all-btn" class="clear-btn">Clear All</button>
+
+    <div id="preview-container" class="hidden">
+      <p>Image Preview:</p>
+      <img id="preview-image" alt="Preview" />
+    </div>
+
+    <div id="gallery"></div>
+  </div>
+
+  <!-- Modal for enlarged image -->
+  <div id="modal" class="modal hidden">
+    <span id="modal-close" class="modal-close">&times;</span>
+    <img id="modal-img" class="modal-content" alt="Enlarged Image" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
